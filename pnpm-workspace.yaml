@@ -1,0 +1,2 @@
+minimumReleaseAgeExclude:
+  - '@openccw/sb3-crypto'

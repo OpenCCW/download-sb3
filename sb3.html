@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>download-sb3</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="no-referrer" />
+  <link rel="stylesheet" href="/src/style.css">
+  <script type="module" src="/src/sb3/main.ts"></script>
+  <link rel="prefetch" href="https://m.ccw.site/user_projects_assets/cd21514d0531fdffb22204e0ec5ed84a.svg">
+  <link rel="prefetch" href="https://m.ccw.site/user_projects_assets/83a9787d4cb6f3b7632b4ddfebf74367.wav">
+  <link rel="prefetch" href="https://m.ccw.site/user_projects_assets/3b9d82418377858b9d35a52c3f95f47c.svg">
+  <link rel="dns-prefetch" href="https://m.xiguacity.cn">
+  <link rel="icon" href="https://m.ccw.site/approvel_tag/e3b282acb4372e228b44da75d8746286.png">
+</head>
+
+<body>
+  <header>
+    <h1>OpenCCW download-sb3</h1>
+    <div class="h3-description">仅供学习研究用途，不得用于未授权搬运、抄袭他人作品。</div>
+    <nav id="nav">
+      <a href="./" target="_blank">获取文件网址</a>
+      <a href="./sb3" target="_blank">下载 sb3</a>
+      <!-- <a href="https://github.com/OpenCCW/download-sb3" target="_blank" rel="noopener noreferrer">Github</a> -->
+    </nav>
+  </header>
+  <div id="div-main">
+    <h2>下载 sb3</h2>
+    <div class="div-input-title">sb3 文件网址：</div>
+    <div class="div-input"><input id="input-sb3-url" type="url"
+        placeholder="https://m.ccw.site/user_projects_sb3/20179958/00000000000000000000000000000000.sb3"></div>
+    <div class="div-input-title">自定义文件名：</div>
+    <div class="div-input"><input id="input-name" type="text"></div>
+    <div class="div-input-title">模式：</div>
+    <form id="form-mode">
+      <div><label for="mode-0"><input type="radio" name="mode" value="0" id="mode-0" checked> 下载完整 sb3（不包含扩展文件）</label>
+      </div>
+      <div><label for="mode-1"><input type="radio" name="mode" value="1" id="mode-1"> 下载仅包含 project.json 的 sb3</label>
+      </div>
+      <div><label for="mode-2"><input type="radio" name="mode" value="2" id="mode-2"> 下载 project.json</label></div>
+    </form>
+    <div class="div-btn"><button id="btn-download" class="btn btn-default" disabled>下载</button></div>
+    <div class="div-input-title">状态：</div>
+    <div id="div-status" class="hyphen-when-empty">加载依赖</div>
+    <div class="div-input-title">错误：</div>
+    <div id="div-errors" class="hyphen-when-empty"></div>
+  </div>
+  <footer>
+    <div>Copyright © 2026 bddjr</div>
+    <div>License: MIT</div>
+    <div>Github: <a href="https://github.com/OpenCCW/download-sb3" target="_blank"
+        rel="noopener noreferrer">OpenCCW/download-sb3</a>
+    </div>
+  </footer>
+  <script>
+    {
+      const s = new URLSearchParams(location.search);
+      const url = s.get('url');
+      if (url) document.getElementById("input-sb3-url").value = url;
+      const name = s.get('name');
+      if (name) document.getElementById("input-name").value = name;
+    }
+  </script>
+</body>
+
+</html>

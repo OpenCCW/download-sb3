@@ -1,0 +1,21 @@
+{
+  "name": "download-sb3",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "rolldown": "^1.2.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.0"
+  },
+  "dependencies": {
+    "@openccw/sb3-crypto": "^0.1.0",
+    "jszip": "^3.10.1"
+  }
+}
