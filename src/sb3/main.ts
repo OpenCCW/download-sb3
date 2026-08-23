@@ -2,6 +2,7 @@
 // https://m.ccw.site/user_projects_sb3/199431844/3c78eda3fb43e94c6b8cc892d493359b.sb3
 // https://m.ccw.site/user_projects_sb3/199431844/0da008ba3d267512693610decf4a8738.sb3
 // https://m.ccw.site/user_projects_sb3/199431844/6698c5cf0a439bc5dae364fd4a79fe1d.sb3
+// https://m.ccw.site/user_projects_sb3/268013477/f1690ff361f70944c1303742cbee355f.sb3
 
 console.log('%cOpenCCW\n以做爱对抗世界的无趣', "font-size: 20px; font-family: system-ui;")
 
@@ -57,7 +58,16 @@ const downloadAssets = async (zip: JSZip, assets: Set<string>) => {
                         throw Error(`${response.status} ${response.statusText}`)
                     }
                     const data = await response.arrayBuffer()
-                    zip.file(md5ext, data)
+                    // 扩展名 不含'.'
+                    const ext = md5ext.slice(md5ext.lastIndexOf('.') + 1)
+                    let options: JSZip.JSZipFileOptions | undefined
+                    switch (ext) {
+                        case 'png':
+                        case 'jpg':
+                        case 'mp3':
+                            options = { compression: 'STORE' }
+                    }
+                    zip.file(md5ext, data, options)
                     // 获取成功
                     downloadAssets_updateStatus(++count, assets.size)
                     break
