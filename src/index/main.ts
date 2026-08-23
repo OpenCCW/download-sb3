@@ -1,6 +1,7 @@
 // 测试作品链接
 // https://www.ccw.site/detail/61260f0b35ed2a4c1cdca79c
 // https://ccw.site/s/Veb6mp
+// 共创世界的《BadApple 用共创世界和西瓜创客的logo播放》太好玩了，忍不住想要分享给你！ https://ccw.site/s/Veb6mp
 // https://www.ccw.site/PlayerWithInRouter/6a5309e5d4bf1642fe07b93c?projectLink=https://m.ccw.site/user_projects_sb3/199431844/18847bed1e8a633032b955cf6f48b07e.sb3&simple=123
 // https://www.ccw.site/PlayerWithInRouter/6888431c4c3c1a16465d45e3?projectLink=https://m.ccw.site/user_projects_sb3/268013477/f1690ff361f70944c1303742cbee355f.sb3&simple=123
 
@@ -92,6 +93,9 @@ btnGet.addEventListener('click', async () => {
             // 输入的是链接
             let url: URL
             try {
+                const i = oid.indexOf('https:')
+                if (i > 0)
+                    oid = oid.slice(i);
                 url = new URL(oid)
             } catch {
                 try {
