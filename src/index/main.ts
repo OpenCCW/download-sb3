@@ -2,6 +2,7 @@
 // https://www.ccw.site/detail/61260f0b35ed2a4c1cdca79c
 // https://ccw.site/s/Veb6mp
 // https://www.ccw.site/PlayerWithInRouter/6a5309e5d4bf1642fe07b93c?projectLink=https://m.ccw.site/user_projects_sb3/199431844/18847bed1e8a633032b955cf6f48b07e.sb3&simple=123
+// https://www.ccw.site/PlayerWithInRouter/6888431c4c3c1a16465d45e3?projectLink=https://m.ccw.site/user_projects_sb3/268013477/f1690ff361f70944c1303742cbee355f.sb3&simple=123
 
 console.log('%cOpenCCW\n以做爱对抗世界的无趣', "font-size: 20px; font-family: system-ui;")
 
@@ -169,7 +170,7 @@ btnGet.addEventListener('click', async () => {
                 // 尝试找到对应的信息，然后完善它
                 const release = result.body.creationReleaseList.find(v => v.projectLink === paramLink)
                 if (release)
-                    divParamLink.firstChild!.replaceWith(generateElementByLong(release, result.body.title));
+                    divParamLink.replaceWith(generateElementByLong(release, result.body.title));
             }
             // 先隐藏，把元素添加完了，再显示，减少渲染负担
             try {
