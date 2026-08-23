@@ -84,6 +84,13 @@
         rel="noopener noreferrer">OpenCCW/download-sb3</a>
     </div>
   </footer>
+  <script>
+    {
+      const s = new URLSearchParams(location.search);
+      const oid = s.get('oid') || s.get('url');
+      if (oid) document.getElementById("input-oid").value = oid;
+    }
+  </script>
 </body>
 
 </html>
