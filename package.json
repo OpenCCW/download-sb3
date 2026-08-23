@@ -1,5 +1,6 @@
 {
   "name": "download-sb3",
+  "description": "下载共创世界CCW的sb3文件",
   "private": true,
   "version": "0.0.0",
   "type": "module",
