@@ -71,6 +71,17 @@ const generateElementByShort = (sb3link: string, projectTitle: string) => {
     return elem
 }
 
+const compareSb3Link = (a: string, b: string) => {
+    if (a == b) return true;
+    const newOrigin = 'https://m.ccw.site/'
+    const oldOrigin = 'https://m.xiguacity.cn/'
+    if (a.startsWith(oldOrigin))
+        a = newOrigin + a.slice(oldOrigin.length);
+    if (b.startsWith(oldOrigin))
+        b = newOrigin + b.slice(oldOrigin.length);
+    return a == b
+}
+
 btnGet.addEventListener('click', async () => {
     btnGet.disabled = true
     divErrors.innerHTML = ''
@@ -176,7 +187,7 @@ btnGet.addEventListener('click', async () => {
                 let updateParamLinkOnce = !!paramLink
                 for (const release of result.body.creationReleaseList) {
                     const elem = generateElementByLong(release, result.body.title)
-                    if (updateParamLinkOnce && release.projectLink === paramLink) {
+                    if (updateParamLinkOnce && compareSb3Link(release.projectLink, paramLink!)) {
                         // 找到了参数链接对应的版本，完善信息。
                         updateParamLinkOnce = false
                         divParamLink.replaceChildren(elem.cloneNode(true))
