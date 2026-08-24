@@ -6,6 +6,8 @@
 
 console.log('%cOpenCCW\n以做爱对抗世界的无趣', "font-size: 20px; font-family: system-ui;")
 
+import '../hook/anchor-click'
+
 import JSZip from "jszip"
 import { decryptToJszip, decryptToProjectJson } from "@openccw/sb3-crypto/dist/decrypt"
 
