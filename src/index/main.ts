@@ -27,8 +27,8 @@ const divHistoryRelease = document.getElementById("div-history-release") as HTML
 
 const generateSb3HtmlLink = (url: string | URL, projectTitle: string) => {
     const s = new URLSearchParams;
-    s.set('url', url as string);
     if (projectTitle) s.set('name', projectTitle);
+    s.set('url', url as string);
     return './sb3?' + s
 }
 
