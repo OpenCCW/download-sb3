@@ -9,6 +9,12 @@ console.log('%cOpenCCW\n以做爱对抗世界的无趣', "font-size: 20px; font-
 
 import type { Release, ResultCreationDetail } from './ResultCreationDetail'
 
+const zhishiOssHostname = [
+    "m.ccw.site",
+    "m.xiguacity.cn",
+    "zhishi.oss-cn-beijing.aliyuncs.com",
+]
+
 const templateLong = document.getElementById("template-long") as HTMLTemplateElement
 const templateShort = document.getElementById("template-short") as HTMLTemplateElement
 const inputOid = document.getElementById("input-oid") as HTMLInputElement
@@ -73,13 +79,18 @@ const generateElementByShort = (sb3link: string, projectTitle: string) => {
 
 const compareSb3Link = (a: string, b: string) => {
     if (a == b) return true;
-    const newOrigin = 'https://m.ccw.site/'
-    const oldOrigin = 'https://m.xiguacity.cn/'
-    if (a.startsWith(oldOrigin))
-        a = newOrigin + a.slice(oldOrigin.length);
-    if (b.startsWith(oldOrigin))
-        b = newOrigin + b.slice(oldOrigin.length);
-    return a == b
+    try {
+        const au = new URL(a)
+        const bu = new URL(b)
+        return (
+            au.pathname == bu.pathname &&
+            zhishiOssHostname.includes(au.hostname) &&
+            zhishiOssHostname.includes(bu.hostname)
+        )
+    } catch (e) {
+        console.error(e)
+    }
+    return false
 }
 
 btnGet.addEventListener('click', async () => {
