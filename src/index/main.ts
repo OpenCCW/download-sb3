@@ -170,17 +170,18 @@ btnGet.addEventListener('click', async () => {
 
             divLastProjectLink.appendChild(generateElementByShort(result.body.latestProjectLink, result.body.title))
             divLastRelease.appendChild(generateElementByLong(result.body.creationRelease, result.body.title))
-            if (paramLink) {
-                // 尝试找到对应的信息，然后完善它
-                const release = result.body.creationReleaseList.find(v => v.projectLink === paramLink)
-                if (release)
-                    divParamLink.replaceWith(generateElementByLong(release, result.body.title));
-            }
             // 先隐藏，把元素添加完了，再显示，减少渲染负担
             try {
                 divHistoryRelease.style.display = 'none'
+                let updateParamLinkOnce = !!paramLink
                 for (const release of result.body.creationReleaseList) {
-                    divHistoryRelease.appendChild(generateElementByLong(release, result.body.title))
+                    const elem = generateElementByLong(release, result.body.title)
+                    if (updateParamLinkOnce && release.projectLink === paramLink) {
+                        // 找到了参数链接对应的版本，完善信息。
+                        updateParamLinkOnce = false
+                        divParamLink.replaceChildren(elem.cloneNode(true))
+                    }
+                    divHistoryRelease.appendChild(elem)
                 }
             } finally {
                 divHistoryRelease.style.display = ''
