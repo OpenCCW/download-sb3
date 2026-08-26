@@ -1,6 +1,6 @@
 {
   "name": "@openccw/download-sb3",
-  "description": "下载共创世界 CCW 的作品 sb3 文件。",
+  "description": "在线下载共创世界 CCW 的作品 sb3 文件。",
   "private": true,
   "version": "0.0.0",
   "type": "module",

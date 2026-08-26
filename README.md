@@ -1,4 +1,4 @@
-下载共创世界 CCW 的作品 sb3 文件。
+在线下载共创世界 CCW 的作品 sb3 文件。
 
 https://openccw.github.io/download-sb3/
 
