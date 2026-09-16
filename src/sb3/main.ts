@@ -9,7 +9,7 @@ console.log('%cOpenCCW\n以做爱对抗世界的无趣', "font-size: 20px; font-
 import '../hook/anchor-click'
 
 import JSZip from "jszip"
-import { decryptToJszip, decryptToProjectJson } from "@openccw/sb3-crypto/dist/decrypt"
+import { prepareDecrypt } from "@openccw/sb3-crypto/dist/decrypt"
 
 const urlPrefix_user_projects_assets = `https://m.ccw.site/user_projects_assets/`
 
@@ -22,12 +22,11 @@ const divErrors = document.getElementById("div-errors") as HTMLDivElement
 
 let saveFileBlobUrl = ''
 
-const saveFile = (name: string, data: BlobPart) => {
+const saveFile = (name: string, blob: Blob) => {
     if (saveFileBlobUrl) {
         URL.revokeObjectURL(saveFileBlobUrl);
         saveFileBlobUrl = ''
     }
-    const blob = new Blob([data])
     saveFileBlobUrl = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = saveFileBlobUrl
@@ -137,7 +136,7 @@ btnDownload.addEventListener('click', async () => {
 
         let downloadName = inputName.value
 
-        divStatus.innerText = '下载 project.json'
+        divStatus.innerText = '从网络获取 sb3'
 
         // 从网络获取 sb3 文件。
         // 文件名不是 MD5 ，同名文件的内容是可变的，所以不使用缓存。
@@ -148,53 +147,58 @@ btnDownload.addEventListener('click', async () => {
         }
         const data = await response.arrayBuffer()
 
-        divStatus.innerText = '解密 project.json'
+        divStatus.innerText = '解密 sb3'
 
         // 获取文件名
         projectLinkURL.href = response.url
         let sb3FileName = projectLinkURL.pathname
         sb3FileName = sb3FileName.slice(sb3FileName.lastIndexOf('/') + 1)
-
         downloadName ||= sb3FileName
+
+        // 解密，然后自己处理返回的数据。
+        const { sb3, zip, json, jsonIsDecrypted } = await prepareDecrypt(data, sb3FileName)
         let a: HTMLAnchorElement
+        let blob: Blob;
         if (mode == "2") {
             if (!/\.json$/i.test(downloadName))
                 downloadName += '.json';
-            // 解密并返回 project.json (string)
-            const decryptedProjectJson = await decryptToProjectJson(data, sb3FileName)
-            a = saveFile(downloadName, decryptedProjectJson)
+            blob = new Blob([json])
         } else {
             if (!/\.(sb3|zip)$/i.test(downloadName))
                 downloadName += '.sb3';
-            // 解密并返回 JSZip 对象
-            const zip = await decryptToJszip(data, sb3FileName)
-            if (mode == "0") {
-                // 获取所有造型、背景、声音
-                let jsonStr = await zip.file("project.json")!.async("text");
-                const zipFiles = zip.files
-                const project = JSON.parse(jsonStr)
-                const assets = new Set<string>()
-                for (const target of project.targets) {
-                    for (const a of target.costumes) {
-                        if (!Object.prototype.hasOwnProperty.call(zipFiles, a.md5ext))
-                            assets.add(a.md5ext)
+            if (mode == "1" && !jsonIsDecrypted) {
+                // sb3 里的 project.json 未加密。
+                // 输入的 data 是 ArrayBuffer ，所以以下类型断言是可靠的。
+                blob = new Blob([sb3 as Uint8Array<ArrayBuffer>])
+            } else {
+                if (mode == "0") {
+                    // 获取所有造型、背景、声音
+                    const zipFiles = zip.files
+                    const project = JSON.parse(json)
+                    const assets = new Set<string>()
+                    for (const target of project.targets) {
+                        for (const a of target.costumes) {
+                            if (!Object.prototype.hasOwnProperty.call(zipFiles, a.md5ext))
+                                assets.add(a.md5ext)
+                        }
+                        for (const a of target.sounds) {
+                            if (!Object.prototype.hasOwnProperty.call(zipFiles, a.md5ext))
+                                assets.add(a.md5ext)
+                        }
                     }
-                    for (const a of target.sounds) {
-                        if (!Object.prototype.hasOwnProperty.call(zipFiles, a.md5ext))
-                            assets.add(a.md5ext)
-                    }
+                    await downloadAssets(zip, assets)
                 }
-                await downloadAssets(zip, assets)
+                divStatus.innerText = '生成压缩文件'
+                if (jsonIsDecrypted)
+                    zip.file("project.json", json);
+                blob = await zip.generateAsync({
+                    type: "blob",
+                    compression: "DEFLATE",
+                    compressionOptions: { level: 6 },
+                })
             }
-            const sb3 = await zip.generateAsync({
-                type: "uint8array",
-                compression: "DEFLATE",
-                compressionOptions: {
-                    level: 6,
-                },
-            }) as Uint8Array<ArrayBuffer>
-            a = saveFile(downloadName, sb3)
         }
+        a = saveFile(downloadName, blob)
 
         divStatus.innerText = '下载完成。'
         divStatus.appendChild(a)
