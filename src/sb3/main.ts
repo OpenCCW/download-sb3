@@ -39,12 +39,14 @@ const saveFile = (name: string, blob: Blob) => {
 const errorsAdd = (e: any) => divErrors.appendChild(document.createTextNode(e + '\n'))
 
 const downloadAssets_updateStatus = (now: number, size: number) => {
-    const c = Math.floor(now * 10000 / size).toString().padStart(3, '0')
+    const c = (0 | (now * 10000 / size)).toString().padStart(3, '0')
     divStatus.innerText = `下载资源 ${c.slice(0, -2)}.${c.slice(-2)}% (${now} / ${size})`
 }
 
 const downloadAssets = async (zip: JSZip, assets: Set<string>) => {
-    downloadAssets_updateStatus(0, assets.size)
+    const size = assets.size
+    if (!size) return;
+    downloadAssets_updateStatus(0, size)
     let count = 0
     const iterator = assets.values()
     const f = async () => {
@@ -70,7 +72,7 @@ const downloadAssets = async (zip: JSZip, assets: Set<string>) => {
                     }
                     zip.file(md5ext, data, options)
                     // 获取成功
-                    downloadAssets_updateStatus(++count, assets.size)
+                    downloadAssets_updateStatus(++count, size)
                     break
                 } catch (e) {
                     if (retryCount > 2) {
@@ -87,7 +89,7 @@ const downloadAssets = async (zip: JSZip, assets: Set<string>) => {
         }
     }
     // 并发最多10个请求
-    const len = Math.min(10, assets.size)
+    const len = Math.min(10, size)
     const pool = Array<Promise<any>>(len)
     for (let i = 0; i < len;) {
         pool[i++] = f()
