@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@openccw/sb3-crypto':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.2.0
+        version: 0.2.0
       jszip:
         specifier: ^3.10.1
         version: 3.10.1
@@ -30,8 +30,8 @@ importers:
 
 packages:
 
-  '@openccw/sb3-crypto@0.1.0':
-    resolution: {integrity: sha512-TPesnZP/DVF+4TPKE5k78v/q+KHYXa3LmWAFI6O+Mbso2+yysX1yw+h8haGMZ2S2y9wxyBj0RDo42DZxV14Klw==}
+  '@openccw/sb3-crypto@0.2.0':
+    resolution: {integrity: sha512-j6UROxCCrN2UN5caVxJ0hFOpE8hY838w+myDoJkmBTlDobP6def2HPlWmIlqMtq/7HxM3Fxmmwov0IudQrVrLQ==}
 
   '@oxc-project/types@0.146.0':
     resolution: {integrity: sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA==}
@@ -368,6 +368,9 @@ packages:
     resolution: {integrity: sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA==}
     engines: {node: '>= 12.0.0'}
 
+  mini-to-base64@0.0.2:
+    resolution: {integrity: sha512-TocbWc+1g4uNfM6ZqhiyVlotINk/gn93Jsq3aLrQ6Q01eByTqex6WCRBg00Qwv1mERFMg1kadvmHvmTfJPpYeA==}
+
   nanoid@3.3.18:
     resolution: {integrity: sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -376,8 +379,8 @@ packages:
   pako@1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
 
-  parse-base64-like-crypto-js@0.0.1:
-    resolution: {integrity: sha512-K7MnGCc4A/5SOW5m4XyvOxa29Z20B95LHeqSkMUc7fWHoPALxX2HHqT9FTDRCsxpe2dOUdOnXBJ0nVCGAx+kkw==}
+  parse-base64-like-crypto-js@0.1.0:
+    resolution: {integrity: sha512-G2UlHduN7CkFf3LIwCrQd0as4rEVTrYduTXr9KTOwOeWgbvcvCrulHQVVSMK1zR53pyaqtOlASnY5NZZiMjM/A==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -474,10 +477,11 @@ packages:
 
 snapshots:
 
-  '@openccw/sb3-crypto@0.1.0':
+  '@openccw/sb3-crypto@0.2.0':
     dependencies:
       jszip: 3.10.1
-      parse-base64-like-crypto-js: 0.0.1
+      mini-to-base64: 0.0.2
+      parse-base64-like-crypto-js: 0.1.0
 
   '@oxc-project/types@0.146.0': {}
 
@@ -669,11 +673,13 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.33.0
       lightningcss-win32-x64-msvc: 1.33.0
 
+  mini-to-base64@0.0.2: {}
+
   nanoid@3.3.18: {}
 
   pako@1.0.11: {}
 
-  parse-base64-like-crypto-js@0.0.1: {}
+  parse-base64-like-crypto-js@0.1.0: {}
 
   picocolors@1.1.1: {}
 

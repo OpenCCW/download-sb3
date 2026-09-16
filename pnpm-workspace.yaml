@@ -1,2 +1,4 @@
 minimumReleaseAgeExclude:
   - '@openccw/sb3-crypto'
+  - mini-to-base64@0.0.2
+  - parse-base64-like-crypto-js@0.1.0
